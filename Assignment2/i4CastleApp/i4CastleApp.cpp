@@ -246,7 +246,7 @@ void i4CastleApp::Draw(const GameTimer& gt)
 		D3D12_RESOURCE_STATE_PRESENT, D3D12_RESOURCE_STATE_RENDER_TARGET));
 
     // Clear the back buffer and depth buffer.
-    mCommandList->ClearRenderTargetView(CurrentBackBufferView(), Colors::LightSteelBlue, 0, nullptr);
+    mCommandList->ClearRenderTargetView(CurrentBackBufferView(), Colors::Black, 0, nullptr);
     mCommandList->ClearDepthStencilView(DepthStencilView(), D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
 
     // Specify the buffers we are going to render to.
@@ -465,11 +465,20 @@ void i4CastleApp::UpdateMainPassCB(const GameTimer& gt)
 	mMainPassCB.DeltaTime = gt.DeltaTime();
 	mMainPassCB.AmbientLight = { 0.25f, 0.25f, 0.35f, 1.0f };
 	mMainPassCB.Lights[0].Direction = { 0.57735f, -0.57735f, 0.57735f };
-	mMainPassCB.Lights[0].Strength = { 0.8f, 0.8f, 0.8f };
-	mMainPassCB.Lights[1].Direction = { -0.57735f, -0.57735f, 0.57735f };
-	mMainPassCB.Lights[1].Strength = { 0.4f, 0.4f, 0.4f };
-	mMainPassCB.Lights[2].Direction = { 0.0f, -0.707f, -0.707f };
-	mMainPassCB.Lights[2].Strength = { 0.2f, 0.2f, 0.2f };
+	mMainPassCB.Lights[0].Strength = { 0.2f, 0.2f, 0.2f };
+	//mMainPassCB.Lights[1].Direction = { -0.57735f, -0.57735f, 0.57735f };
+	mMainPassCB.Lights[1].Strength = { 1.0f, 1.0f, 1.0f };
+	mMainPassCB.Lights[1].Position = { 0.0f, 3.0f, -7.8f };
+	mMainPassCB.Lights[2].Strength = { 1.0f, 0.0f, 0.0f };
+	mMainPassCB.Lights[2].Position = { 4.0f, 6.0f, 0.0f };
+	mMainPassCB.Lights[3].Strength = { 0.0f, 1.0f, 0.0f };
+	mMainPassCB.Lights[3].Position = { -4.0f, 6.0f, 0.0f };
+	mMainPassCB.Lights[4].Strength = { 0.0f, 0.0f, 1.0f };
+	mMainPassCB.Lights[4].Position = { 4.0f, 6.0f, 8.0f };
+	mMainPassCB.Lights[5].Strength = { 1.0f, 1.0f, 0.0f };
+	mMainPassCB.Lights[5].Position = { -4.0f, 6.0f, 8.0f };
+	mMainPassCB.Lights[6].Strength = { 1.0f, 1.0f, 1.0f };
+	mMainPassCB.Lights[6].Position = { 0.0f, 10.0f, 6.0f };
 
 	auto currPassCB = mCurrFrameResource->PassCB.get();
 	currPassCB->CopyData(0, mMainPassCB);
