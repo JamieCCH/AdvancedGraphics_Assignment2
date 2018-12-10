@@ -1,3 +1,4 @@
-Ground, Diamond, Spheres, Cones, Fountain Base, Main Tower - Stone
-Walls - Wood with box markings
-Pinball Paddles, Tetrahedrons -  Ceramic tiles
+Ground, Octahedron  - checkboard
+Diamond, Spheres, Cones, Pyrimad, Fountain Base, Main Tower - Stone
+Walls, Main tower Base - Wood
+Pinball Paddles, Roof -  bricks

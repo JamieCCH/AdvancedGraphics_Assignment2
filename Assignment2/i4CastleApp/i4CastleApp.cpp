@@ -171,7 +171,7 @@ bool i4CastleApp::Initialize()
 	// so we have to query this information.
     mCbvSrvDescriptorSize = md3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
 
-	mCamera.SetPosition(0.0f, 2.0f, -15.0f);
+	mCamera.SetPosition(0.0f, 3.0f, -25.0f);
  
 	LoadTextures();
     BuildRootSignature();
@@ -479,7 +479,7 @@ void i4CastleApp::LoadTextures()
 {
 	auto bricksTex = std::make_unique<Texture>();
 	bricksTex->Name = "bricksTex";
-	bricksTex->Filename = L"../../Textures/bricks.dds";
+	bricksTex->Filename = L"../../Textures/bricks3.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
 		mCommandList.Get(), bricksTex->Filename.c_str(),
 		bricksTex->Resource, bricksTex->UploadHeap));
@@ -493,14 +493,14 @@ void i4CastleApp::LoadTextures()
 
 	auto tileTex = std::make_unique<Texture>();
 	tileTex->Name = "tileTex";
-	tileTex->Filename = L"../../Textures/tile.dds";
+	tileTex->Filename = L"../../Textures/checkboard.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
 		mCommandList.Get(), tileTex->Filename.c_str(),
 		tileTex->Resource, tileTex->UploadHeap));
 
 	auto crateTex = std::make_unique<Texture>();
 	crateTex->Name = "crateTex";
-	crateTex->Filename = L"../../Textures/WoodCrate01.dds";
+	crateTex->Filename = L"../../Textures/woods.dds";
 	ThrowIfFailed(DirectX::CreateDDSTextureFromFile12(md3dDevice.Get(),
 		mCommandList.Get(), crateTex->Filename.c_str(),
 		crateTex->Resource, crateTex->UploadHeap));
@@ -1020,7 +1020,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&FountainBaseCylinderRitem->World, XMMatrixScaling(4.3f, .3f, 4.3f)*XMMatrixTranslation(0.f, 0.3f, -8.f));
 	XMStoreFloat4x4(&FountainBaseCylinderRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	FountainBaseCylinderRitem->ObjCBIndex = 0;
-	FountainBaseCylinderRitem->Mat = mMaterials["bricks0"].get();
+	FountainBaseCylinderRitem->Mat = mMaterials["stone0"].get();
 	FountainBaseCylinderRitem->Geo = mGeometries["shapeGeo"].get();
 	FountainBaseCylinderRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	FountainBaseCylinderRitem->IndexCount = FountainBaseCylinderRitem->Geo->DrawArgs["cylinder"].IndexCount;
@@ -1068,7 +1068,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&coneRitem->World, XMMatrixScaling(3.f, 2.f, 3.f)*XMMatrixTranslation(0.0f, 7.5f, 6.0f));
 	XMStoreFloat4x4(&coneRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	coneRitem->ObjCBIndex = 4;
-	coneRitem->Mat = mMaterials["stone0"].get();
+	coneRitem->Mat = mMaterials["bricks0"].get();
 	coneRitem->Geo = mGeometries["shapeGeo"].get();
 	coneRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	coneRitem->IndexCount = coneRitem->Geo->DrawArgs["cone"].IndexCount;
@@ -1104,7 +1104,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&triPrismRitem->World, XMMatrixScaling(1.5f, 1.5f, 2.5f)*XMMatrixTranslation(0.0f, 0.5f, -2.5f));
 	XMStoreFloat4x4(&triPrismRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	triPrismRitem->ObjCBIndex = 7;
-	triPrismRitem->Mat = mMaterials["tile0"].get();
+	triPrismRitem->Mat = mMaterials["bricks0"].get();
 	triPrismRitem->Geo = mGeometries["shapeGeo"].get();
 	triPrismRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	triPrismRitem->IndexCount = triPrismRitem->Geo->DrawArgs["triangularPrism"].IndexCount;
@@ -1116,7 +1116,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&leftDoorRitem->World, XMMatrixScaling(.5f, 2.0f, .7f)*XMMatrixRotationX(XMConvertToRadians(-90))*XMMatrixRotationY(XMConvertToRadians(-30))*XMMatrixTranslation(-1.7f, 0.25f, -12.0f));
 	XMStoreFloat4x4(&leftDoorRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	leftDoorRitem->ObjCBIndex = 8;
-	leftDoorRitem->Mat = mMaterials["tile0"].get();
+	leftDoorRitem->Mat = mMaterials["bricks0"].get();
 	leftDoorRitem->Geo = mGeometries["shapeGeo"].get();
 	leftDoorRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	leftDoorRitem->IndexCount = leftDoorRitem->Geo->DrawArgs["triangularPrism"].IndexCount;
@@ -1128,7 +1128,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&rightDoorRitem->World, XMMatrixScaling(.5f, 2.0f, .7f)*XMMatrixRotationX(XMConvertToRadians(-90))*XMMatrixRotationY(XMConvertToRadians(60))*XMMatrixTranslation(1.5f, 0.25f, -12.0f));
 	XMStoreFloat4x4(&rightDoorRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	rightDoorRitem->ObjCBIndex = 9;
-	rightDoorRitem->Mat = mMaterials["tile0"].get();
+	rightDoorRitem->Mat = mMaterials["bricks0"].get();
 	rightDoorRitem->Geo = mGeometries["shapeGeo"].get();
 	rightDoorRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	rightDoorRitem->IndexCount = rightDoorRitem->Geo->DrawArgs["triangularPrism"].IndexCount;
@@ -1164,7 +1164,7 @@ void i4CastleApp::BuildRenderItems()
 	gridRitem->World = MathHelper::Identity4x4();
 	XMStoreFloat4x4(&gridRitem->TexTransform, XMMatrixScaling(8.0f, 8.0f, 1.0f));
 	gridRitem->ObjCBIndex = 12;
-	gridRitem->Mat = mMaterials["stone0"].get();
+	gridRitem->Mat = mMaterials["tile0"].get();
 	gridRitem->Geo = mGeometries["shapeGeo"].get();
 	gridRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	gridRitem->IndexCount = gridRitem->Geo->DrawArgs["grid"].IndexCount;
@@ -1176,7 +1176,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&WedgeRitem->World, XMMatrixScaling(.3f, .4f, 2.5f)*XMMatrixRotationY(XMConvertToRadians(-90))*XMMatrixTranslation(0.0f, .35f, 2.5f));
 	XMStoreFloat4x4(&WedgeRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	WedgeRitem->ObjCBIndex = 13;
-	WedgeRitem->Mat = mMaterials["stone0"].get();
+	WedgeRitem->Mat = mMaterials["bricks0"].get();
 	WedgeRitem->Geo = mGeometries["shapeGeo"].get();
 	WedgeRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	WedgeRitem->IndexCount = WedgeRitem->Geo->DrawArgs["wedge"].IndexCount;
@@ -1227,7 +1227,7 @@ void i4CastleApp::BuildRenderItems()
 		XMStoreFloat4x4(&leftCylRitem->World, brickTexTransform * rightCylWorld);
 		XMStoreFloat4x4(&leftCylRitem->TexTransform, brickTexTransform);
 		leftCylRitem->ObjCBIndex = objCBIndex++;
-		leftCylRitem->Mat = mMaterials["stone0"].get();
+		leftCylRitem->Mat = mMaterials["tile0"].get();
 		leftCylRitem->Geo = mGeometries["shapeGeo"].get();
 		leftCylRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 		leftCylRitem->IndexCount = leftCylRitem->Geo->DrawArgs["octagon"].IndexCount;
@@ -1237,7 +1237,7 @@ void i4CastleApp::BuildRenderItems()
 		XMStoreFloat4x4(&rightCylRitem->World, brickTexTransform * leftCylWorld);
 		XMStoreFloat4x4(&rightCylRitem->TexTransform, brickTexTransform);
 		rightCylRitem->ObjCBIndex = objCBIndex++;
-		rightCylRitem->Mat = mMaterials["stone0"].get();
+		rightCylRitem->Mat = mMaterials["tile0"].get();
 		rightCylRitem->Geo = mGeometries["shapeGeo"].get();
 		rightCylRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 		rightCylRitem->IndexCount = rightCylRitem->Geo->DrawArgs["octagon"].IndexCount;
@@ -1288,7 +1288,7 @@ void i4CastleApp::BuildRenderItems()
 		XMStoreFloat4x4(&leftHexRitem->World, hexTransform*leftHexWorld);
 		XMStoreFloat4x4(&leftHexRitem->TexTransform, brickTexTransform);
 		leftHexRitem->ObjCBIndex = objCBIndex++;
-		leftHexRitem->Mat = mMaterials["crate0"].get();
+		leftHexRitem->Mat = mMaterials["stone0"].get();
 		leftHexRitem->Geo = mGeometries["shapeGeo"].get();
 		leftHexRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 		leftHexRitem->IndexCount = leftHexRitem->Geo->DrawArgs["hexagon"].IndexCount;
@@ -1298,7 +1298,7 @@ void i4CastleApp::BuildRenderItems()
 		XMStoreFloat4x4(&righHexRitem->World, hexTransform*rightHexWorld);
 		XMStoreFloat4x4(&righHexRitem->TexTransform, brickTexTransform);
 		righHexRitem->ObjCBIndex = objCBIndex++;
-		righHexRitem->Mat = mMaterials["crate0"].get();
+		righHexRitem->Mat = mMaterials["stone0"].get();
 		righHexRitem->Geo = mGeometries["shapeGeo"].get();
 		righHexRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 		righHexRitem->IndexCount = righHexRitem->Geo->DrawArgs["hexagon"].IndexCount;
@@ -1307,7 +1307,7 @@ void i4CastleApp::BuildRenderItems()
 
 		XMStoreFloat4x4(&leftSphereRitem->World, coneTransform*leftSphereWorld);
 		leftSphereRitem->ObjCBIndex = objCBIndex++;
-		leftSphereRitem->Mat = mMaterials["crate0"].get();
+		leftSphereRitem->Mat = mMaterials["stone0"].get();
 		leftSphereRitem->Geo = mGeometries["shapeGeo"].get();
 		leftSphereRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 		leftSphereRitem->IndexCount = leftSphereRitem->Geo->DrawArgs["cone"].IndexCount;
@@ -1317,7 +1317,7 @@ void i4CastleApp::BuildRenderItems()
 		XMStoreFloat4x4(&rightSphereRitem->World, coneTransform*rightSphereWorld);
 		rightSphereRitem->TexTransform = MathHelper::Identity4x4();
 		rightSphereRitem->ObjCBIndex = objCBIndex++;
-		rightSphereRitem->Mat = mMaterials["crate0"].get();
+		rightSphereRitem->Mat = mMaterials["stone0"].get();
 		rightSphereRitem->Geo = mGeometries["shapeGeo"].get();
 		rightSphereRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 		rightSphereRitem->IndexCount = rightSphereRitem->Geo->DrawArgs["cone"].IndexCount;
@@ -1334,7 +1334,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&leftMainWedgeRitem->World, XMMatrixScaling(.3f, .4f, 4.f)*XMMatrixTranslation(-3.65f, .35f, 6.f));
 	XMStoreFloat4x4(&leftMainWedgeRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	leftMainWedgeRitem->ObjCBIndex = 32;
-	leftMainWedgeRitem->Mat = mMaterials["crate0"].get();
+	leftMainWedgeRitem->Mat = mMaterials["bricks0"].get();
 	leftMainWedgeRitem->Geo = mGeometries["shapeGeo"].get();
 	leftMainWedgeRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	leftMainWedgeRitem->IndexCount = leftMainWedgeRitem->Geo->DrawArgs["wedge"].IndexCount;
@@ -1346,7 +1346,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&rightMainWedgeRitem->World, XMMatrixScaling(.3f, .4f, 4.f)*XMMatrixRotationY(XMConvertToRadians(180))*XMMatrixTranslation(3.65f, .35f, 6.f));
 	XMStoreFloat4x4(&rightMainWedgeRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	rightMainWedgeRitem->ObjCBIndex = 33;
-	rightMainWedgeRitem->Mat = mMaterials["crate0"].get();
+	rightMainWedgeRitem->Mat = mMaterials["bricks0"].get();
 	rightMainWedgeRitem->Geo = mGeometries["shapeGeo"].get();
 	rightMainWedgeRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	rightMainWedgeRitem->IndexCount = rightMainWedgeRitem->Geo->DrawArgs["wedge"].IndexCount;
@@ -1358,7 +1358,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&backMainWedgeRitem->World, XMMatrixScaling(.3f, .4f, 2.5f)*XMMatrixRotationY(XMConvertToRadians(90))*XMMatrixTranslation(0.0f, .35f, 9.6f));
 	XMStoreFloat4x4(&backMainWedgeRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	backMainWedgeRitem->ObjCBIndex = 34;
-	backMainWedgeRitem->Mat = mMaterials["crate0"].get();
+	backMainWedgeRitem->Mat = mMaterials["bricks0"].get();
 	backMainWedgeRitem->Geo = mGeometries["shapeGeo"].get();
 	backMainWedgeRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	backMainWedgeRitem->IndexCount = backMainWedgeRitem->Geo->DrawArgs["wedge"].IndexCount;
@@ -1382,7 +1382,7 @@ void i4CastleApp::BuildRenderItems()
 	XMStoreFloat4x4(&starRitem->World, XMMatrixScaling(.6f, 1.f, .6f)*XMMatrixTranslation(0.f, 9.5f, 6.f));
 	XMStoreFloat4x4(&starRitem->TexTransform, XMMatrixScaling(1.0f, 1.0f, 1.0f));
 	starRitem->ObjCBIndex = 36;
-	starRitem->Mat = mMaterials["crate0"].get();
+	starRitem->Mat = mMaterials["stone0"].get();
 	starRitem->Geo = mGeometries["shapeGeo"].get();
 	starRitem->PrimitiveType = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 	starRitem->IndexCount = starRitem->Geo->DrawArgs["star"].IndexCount;
